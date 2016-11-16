@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        CBLManager.enableLogging("CBLDatabase")
+        CBLManager.enableLogging("View")
+        CBLManager.enableLogging("ViewVerbose")
+        CBLManager.enableLogging("Query")
+        CBLManager.enableLogging("Sync")
+        CBLManager.enableLogging("SyncVerbose")
         return true
     }
 
