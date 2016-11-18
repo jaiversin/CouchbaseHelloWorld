@@ -14,6 +14,7 @@
 		840DEFA31DDC1720009B33D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 840DEFA21DDC1720009B33D1 /* Assets.xcassets */; };
 		840DEFA61DDC1720009B33D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840DEFA41DDC1720009B33D1 /* LaunchScreen.storyboard */; };
 		840DEFB11DDC1720009B33D1 /* CouchbaseHelloWorldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DEFB01DDC1720009B33D1 /* CouchbaseHelloWorldTests.swift */; };
+		840DEFBD1DDCC50B009B33D1 /* dash-nonprod.cblite2 in Resources */ = {isa = PBXBuildFile; fileRef = 840DEFBC1DDCC50B009B33D1 /* dash-nonprod.cblite2 */; };
 		E3DBE2B0F2DA98BE4772EFC8 /* Pods_CouchbaseHelloWorldTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B887A64C16754D9AB791D79 /* Pods_CouchbaseHelloWorldTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		840DEFB01DDC1720009B33D1 /* CouchbaseHelloWorldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouchbaseHelloWorldTests.swift; sourceTree = "<group>"; };
 		840DEFB21DDC1720009B33D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		840DEFBB1DDC19D9009B33D1 /* CouchbaseHelloWorld-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CouchbaseHelloWorld-Bridging-Header.h"; sourceTree = "<group>"; };
+		840DEFBC1DDCC50B009B33D1 /* dash-nonprod.cblite2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "dash-nonprod.cblite2"; sourceTree = "<group>"; };
 		9A29574D1888010E476BE2E8 /* Pods-CouchbaseHelloWorld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CouchbaseHelloWorld.release.xcconfig"; path = "Pods/Target Support Files/Pods-CouchbaseHelloWorld/Pods-CouchbaseHelloWorld.release.xcconfig"; sourceTree = "<group>"; };
 		D6D424A0FE180838F422D029 /* Pods-CouchbaseHelloWorld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CouchbaseHelloWorld.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CouchbaseHelloWorld/Pods-CouchbaseHelloWorld.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +112,7 @@
 		840DEF9A1DDC1720009B33D1 /* CouchbaseHelloWorld */ = {
 			isa = PBXGroup;
 			children = (
+				840DEFBC1DDCC50B009B33D1 /* dash-nonprod.cblite2 */,
 				840DEF9B1DDC1720009B33D1 /* AppDelegate.swift */,
 				840DEF9D1DDC1720009B33D1 /* ViewController.swift */,
 				840DEF9F1DDC1720009B33D1 /* Main.storyboard */,
@@ -219,6 +222,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840DEFBD1DDCC50B009B33D1 /* dash-nonprod.cblite2 in Resources */,
 				840DEFA61DDC1720009B33D1 /* LaunchScreen.storyboard in Resources */,
 				840DEFA31DDC1720009B33D1 /* Assets.xcassets in Resources */,
 				840DEFA11DDC1720009B33D1 /* Main.storyboard in Resources */,
@@ -472,6 +476,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CouchbaseHelloWorld/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jaiversin.com.CouchbaseHelloWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -486,6 +491,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CouchbaseHelloWorld/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jaiversin.com.CouchbaseHelloWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";

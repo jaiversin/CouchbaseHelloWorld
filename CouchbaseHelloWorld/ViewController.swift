@@ -13,9 +13,11 @@ class ViewController: UIViewController {
     
     var statusLiveQuery: CBLLiveQuery!
     
-    fileprivate struct Configuration {
-        static let syncURL = URL(string: "http://localhost:4984/dash")!
+    struct Configuration {
+        static let syncURL = NSURL(string: "http://localhost:4984/dash")!
         static let dbName = "dash"
+        static let localdbName = "dash-nonprod"
+        static let localdbExtension = "cblite2"
     }
     
     override func viewDidLoad() {
@@ -23,44 +25,53 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         if let database = buildDatabse() {
-            startPullReplicator(database: database)
-            let query : CBLQuery = createViewQuery(database: database)!
-//            let query : CBLQuery = createAllDocsQuery(database: database)!
-            createLiveQuery(query: query)
+            startPullReplicator(database)
+            let query : CBLQuery = createViewQuery(database)!
+            //            let query : CBLQuery = createAllDocsQuery(database: database)!
+            createLiveQuery(query)
         }
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     
     
     func buildDatabse() -> CBLDatabase? {
-        guard let database = try? CBLManager.sharedInstance().databaseNamed(Configuration.dbName)
-            else {
-                return nil
+        
+        //If none present, then create it with the one shipped in the bundle
+        let cannedDbPath = NSBundle.mainBundle().pathForResource(Configuration.localdbName, ofType: Configuration.localdbExtension)
+        
+        try? CBLManager.sharedInstance().replaceDatabaseNamed(Configuration.dbName, withDatabaseDir: cannedDbPath!)
+        
+        let database = try? CBLManager.sharedInstance().existingDatabaseNamed(Configuration.dbName)
+        
+        if database == nil {
+            print("Unable to copy local database from bundle")
+            return nil
         }
+        
         return database
     }
-
+    
     func startPullReplicator (database: CBLDatabase) {
         let pull = database.createPullReplication(Configuration.syncURL)
         
         pull.continuous = true
-//        pull.channels = ["facilitystatus"]
-        observeSync(pull: pull)
+        //        pull.channels = ["facilitystatus"]
+        observeSync(pull)
         
         pull.start()
     }
     
     func observeSync(pull: CBLReplication) {
-        NotificationCenter.default.addObserver(
+        NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: #selector(onReplicationChanged),
-            name: NSNotification.Name.cblReplicationChange,
+            name: kCBLReplicationChangeNotification,
             object: pull)
     }
     
@@ -73,13 +84,13 @@ class ViewController: UIViewController {
         if view.mapBlock == nil {
             view.setMapBlock({ (doc, emit) -> Void in
                 if let _ = doc["waitMinutes"] as? Int {
-                    emit(doc["id"], nil)
+                    emit(doc["id"]!, nil)
                 }
-            }, version: "1.6")
+                }, version: "6")
         }
         
         return view.createQuery()
-
+        
     }
     
     func createAllDocsQuery(database: CBLDatabase) -> CBLQuery? {
@@ -87,14 +98,13 @@ class ViewController: UIViewController {
     }
     
     func createLiveQuery (query: CBLQuery) {
-        statusLiveQuery = query.asLive()
+        statusLiveQuery = query.asLiveQuery()
         
-        statusLiveQuery.addObserver(self, forKeyPath: "rows", options: .new, context: nil)
+        statusLiveQuery.addObserver(self, forKeyPath: "rows", options: [], context: nil)
         statusLiveQuery.start()
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?,
-                               change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if object as? NSObject == statusLiveQuery {
             printAllRows()
         }
